@@ -15,7 +15,7 @@ public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
     }
 
     /*
-    every request before send to server must checked by JWTTokenFilter it's analyze request look at
+    every request before send to server must checked by JWTTokenFilter it's analyze request: look at
     token which should be valid an if all is ok we go next
      */
 

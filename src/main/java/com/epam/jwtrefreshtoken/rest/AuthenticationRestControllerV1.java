@@ -4,7 +4,11 @@ import com.epam.jwtrefreshtoken.dto.AuthenticationRequestDto;
 import com.epam.jwtrefreshtoken.model.User;
 import com.epam.jwtrefreshtoken.security.jwt.JwtTokenProvider;
 import com.epam.jwtrefreshtoken.service.UserService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,6 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/v1/auth")
 public class AuthenticationRestControllerV1 {
+
 
     private final AuthenticationManager authenticationManager;
 
@@ -48,11 +53,9 @@ public class AuthenticationRestControllerV1 {
             }
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
-
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("token", token);
-
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
